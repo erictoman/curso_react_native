@@ -1,4 +1,5 @@
 export default Colors = {
-    while: '#FFFFFF',
-    black: '#000000',
-}
+  white: '#FFFFFF',
+  black: '#000000',
+  gray: '#B8B8B8',
+};
