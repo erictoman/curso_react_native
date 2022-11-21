@@ -1,16 +1,43 @@
-import {Image, StyleSheet, View, Text, Pressable} from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  View,
+  Text,
+  Pressable,
+  ActivityIndicator,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
 import left from '../assets/left.png';
 import down from '../assets/down.png';
 import Colors from '../Utils/Colors';
+import {useState} from 'react';
 
-const Details = () => {
+const Details = ({setActivo}) => {
+  const [cargando, setCargando] = useState(false);
+
+  const cargar = () => {
+    if (!cargando) {
+      setCargando(true);
+      setTimeout(() => {
+        setCargando(false);
+        Alert.alert('Exito', 'Se ha realizado el envio');
+      }, 3000);
+    }
+  };
   return (
     <View style={styles.alineacion}>
       <View style={styles.columnas}>
         <View style={styles.barraSuperior}>
-          <View style={styles.izquierda}>
-            <Image source={left}></Image>
-          </View>
+          <Pressable
+            onPress={() => {
+              setActivo(false);
+            }}
+            style={styles.izquierda}>
+            <View>
+              <Image source={left}></Image>
+            </View>
+          </Pressable>
           <View>
             <Text style={styles.centro}>Enviar dinero a</Text>
           </View>
@@ -41,27 +68,35 @@ const Details = () => {
           </View>
         </View>
       </View>
-      <View style={styles.button}>
-        <Text>Enviar</Text>
-      </View>
+      <TouchableOpacity style={styles.button} onPress={cargar}>
+        {cargando ? (
+          <ActivityIndicator />
+        ) : (
+          <Text style={styles.textoBoton}>Enviar</Text>
+        )}
+      </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  alineacion: {
-    flex:1,
-    justifyContent:"space-between"
+  touchable: {
+    justifyContent: 'center',
+    flexDirection: 'row',
+    backgroundColor: Colors.blue,
   },
+  alineacion: {
+    flex: 1,
+    justifyContent: 'space-between',
+  },
+  textoBoton: {color: Colors.white},
   button: {
     borderRadius: 10,
-    borderWidth: 1,
     margin: 5,
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: Colors.gray,
-    color: Colors.white,
   },
   iconoSelector: {
     marginLeft: 10,

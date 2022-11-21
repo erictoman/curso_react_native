@@ -1,11 +1,12 @@
 import {View, StyleSheet, Text, Pressable} from 'react-native';
+import Colors from '../Utils/Colors';
 
-const Item = ({nombre}) => {
+const Item = ({nombre, onClick}) => {
   return (
     <Pressable
       style={({pressed}) => [{opacity: pressed ? 0.3 : 1.0}]}
-      onLongPress={() => {
-        alert('Long Press');
+      onPress={() => {
+        onClick(nombre);
       }}>
       <View style={styles.item}>
         <View style={styles.itemLeft}>
@@ -47,10 +48,10 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   circle: {
-    width: 12,
-    height: 12,
-    borderRadius: 12,
-    backgroundColor: 'red',
+    width: 25,
+    height: 25,
+    borderRadius: 25,
+    backgroundColor: Colors.gray,
   },
   itemText: {
     marginLeft: 10,
